@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace Foodticket\FilesystemCloudflareImages;
 
-use Foodticket\FilesystemCloudflareImages\DataTransferObjects\ImageData;
+use Carbon\Carbon;
+use Foodticket\Cloudflare\Facades\Cloudflare;
 use Foodticket\FilesystemCloudflareImages\Exceptions\MethodNotAvailable;
-use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
 use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 
 class CloudflareImagesAdapter implements FilesystemAdapter
 {
-    private const BASE_URL = 'https://api.cloudflare.com/client/v4/accounts/';
-
-    private PendingRequest $client;
+    private string $accountId;
 
     public function __construct($config)
     {
-        $this->client = $this->client(Arr::get($config, 'account_id'), Arr::get($config, 'api_token'));
+        $this->accountId = Arr::get($config, 'account_id');
     }
 
     public function fileExists(string $path): bool
@@ -40,9 +37,7 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     public function write(string $path, $contents, Config $config): void
     {
-        $this->client->asMultipart()
-            ->attach('file', $contents, $path)
-            ->post('images/v1');
+        Cloudflare::images()->uploadImage($this->accountId, $path, $contents);
     }
 
     public function writeStream(string $path, $contents, Config $config): void
@@ -52,9 +47,7 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     public function read(string $path): string
     {
-        $response = $this->client->get("/images/v1/{$path}/blob");
-
-        return $response->body();
+        return Cloudflare::images()->getBaseImage($this->accountId, $path);
     }
 
     public function readStream(string $path)
@@ -64,7 +57,7 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     public function delete(string $path): void
     {
-        $this->client->delete("/images/v1/{$path}");
+        Cloudflare::images()->deleteImage($this->accountId, $path);
     }
 
     public function deleteDirectory(string $path): void
@@ -132,12 +125,14 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
         $file = $this->getDetails($path);
 
+        $uploaded = Carbon::parse($file->uploaded);
+
         return new FileAttributes(
             path: $path,
             fileSize: $fileSize,
-            lastModified: $file->uploaded->timestamp,
+            lastModified: $uploaded->timestamp,
             mimeType: $mimeType,
-            extraMetadata: (array) $file->meta,
+            extraMetadata: ! empty($file->meta) ? (array) $file->meta : [],
         );
     }
 
@@ -151,18 +146,8 @@ class CloudflareImagesAdapter implements FilesystemAdapter
         return $temp;
     }
 
-    private function getDetails(string $path): ImageData
+    private function getDetails(string $path): object
     {
-        $response = $this->client->get("/images/v1/{$path}");
-
-        return ImageData::create($response->object()->result);
-    }
-
-    private function client(
-        string $accountId,
-        string $apiToken,
-    ): PendingRequest {
-        return Http::baseUrl(self::BASE_URL.$accountId)
-            ->withToken($apiToken);
+       return Cloudflare::images()->getImageDetails($this->accountId, $path);
     }
 }

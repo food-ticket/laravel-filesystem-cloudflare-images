@@ -1,5 +1,5 @@
 # Cloudflare Images Filesystem Driver
-A Laravel filesystem driver for Cloudflare Images.
+This package provides a filesystem driver for Cloudflare Images.
 
 ## Requirements
 
@@ -12,14 +12,44 @@ Add the following to your config/filesystems.php file:
 'cloudflare-images' => [
     'driver' => 'cloudflare-images',
     'account_id' => env('CLOUDFLARE_IMAGES_ACCOUNT_ID'),
-    'api_token' => env('CLOUDFLARE_IMAGES_API_TOKEN'),
+    'api_email' => env('CLOUDFLARE_IMAGES_API_EMAIL', env('CLOUDFLARE_API_EMAIL')),
+    'api_key' => env('CLOUDFLARE_IMAGES_API_KEY', env('CLOUDFLARE_API_KEY')),
 ],
 ```
-And add the following environment variables to your .env file:
+Add the following environment variables to your .env file:
 ```
 CLOUDFLARE_IMAGES_ACCOUNT_ID=<account id>
-CLOUDFLARE_IMAGES_API_TOKEN=<API token>
 ```
+And if you did not have our [Laravel-Cloudflare](https://github.com/food-ticket/laravel-cloudflare) package yet also add the following environment variables to your .env file:
+```
+CLOUDFLARE_IMAGES_API_EMAIL=<API email>
+CLOUDFLARE_IMAGES_API_KEY=<API key>
+```
+
+## Notes
+Cloudflare Images doesnot support directories so not all filesystem methods are available. The following methods are supported:
+
+- `fileExists`
+- `write`
+- `read`
+- `delete`
+- `visibility`
+- `mimeType`
+- `lastModified`
+- `fileSize`
+- `move`
+- `copy`
+
+The following methods are not supported:
+- `directoryExists`
+- `writeStream`
+- `readStream`
+- `deleteDirectory`
+- `createDirectory`
+- `listContents`
+
+The following methods still need to be implemented:
+- `setVisibility`
 
 ## Security Vulnerabilities
 
