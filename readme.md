@@ -20,10 +20,20 @@ Add the following environment variables to your .env file:
 ```
 CLOUDFLARE_IMAGES_ACCOUNT_ID=<account id>
 ```
-And if you did not have our [Laravel-Cloudflare](https://github.com/food-ticket/laravel-cloudflare) package yet also add the following environment variables to your .env file:
+If you did not have our [Laravel-Cloudflare](https://github.com/food-ticket/laravel-cloudflare) wrapper yet you also need to add the following environment variables to your .env file:
 ```
 CLOUDFLARE_IMAGES_API_EMAIL=<API email>
 CLOUDFLARE_IMAGES_API_KEY=<API key>
+```
+
+## Getting started
+The Cloudflare Images filesystem driver can be used as you would use another filesystem driver. The documentation for the Laravel filesystem can be found [here](https://laravel.com/docs/9.x/filesystem). 
+
+The following example shows how to use the Cloudflare Images filesystem driver to store a file.
+```
+use Illuminate\Support\Facades\Storage;
+
+Storage::disk('cloudflare-images')->put('example.txt', 'Contents');
 ```
 
 ## Notes
