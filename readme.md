@@ -33,7 +33,7 @@ The following example shows how to use the Cloudflare Images filesystem driver t
 ```
 use Illuminate\Support\Facades\Storage;
 
-Storage::disk('cloudflare-images')->put('example.txt', 'Contents');
+Storage::disk('cloudflare-images')->put('example.png', 'Contents');
 ```
 
 ## Notes
