@@ -42,7 +42,7 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     public function writeStream(string $path, $contents, Config $config): void
     {
-        throw MethodNotAvailable::throw('writeStream');
+        $this->write($path, $contents, $config);
     }
 
     public function read(string $path): string
@@ -52,7 +52,7 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     public function readStream(string $path)
     {
-        throw MethodNotAvailable::throw('readStream');
+        $this->write($path);
     }
 
     public function delete(string $path): void

@@ -6,6 +6,12 @@ This package provides a filesystem driver for Cloudflare Images.
 - PHP >= 8.0
 - Laravel >= 9.0
 
+## Installation
+To start using the package, you need to install it via Composer:
+```
+composer require foodticket/laravel-filesystem-cloudflare-images
+```
+
 ## Confuguration
 Add the following to your config/filesystems.php file:
 ```
