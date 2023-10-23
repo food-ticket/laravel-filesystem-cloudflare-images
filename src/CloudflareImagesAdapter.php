@@ -37,7 +37,9 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     public function write(string $path, $contents, Config $config): void
     {
-        Cloudflare::images()->uploadImage($this->accountId, $path, $contents);
+        $usesPathId = $config->get('uses_path_id', false);
+
+        Cloudflare::images()->uploadImage($this->accountId, $path, $contents, $usesPathId);
     }
 
     public function writeStream(string $path, $contents, Config $config): void

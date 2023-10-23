@@ -12,6 +12,10 @@ class FilesystemCloudflareImagesServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../config/cloudflare-images.php' => config_path('cloudflare-images.php'),
+        ], 'config');
+
         Storage::extend('cloudflare-images', function (Application $app, array $config) {
             $adapter = new CloudflareImagesAdapter($config);
 
