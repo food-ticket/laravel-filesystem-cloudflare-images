@@ -39,7 +39,9 @@ class CloudflareImagesAdapter implements FilesystemAdapter
     {
         $usesPathId = $config->get('uses_path_id', false);
 
-        Cloudflare::images()->uploadImage($this->accountId, $path, $contents, $usesPathId);
+        $id = $usesPathId ? $path : null;
+
+        Cloudflare::images()->uploadImage($this->accountId, $path, $contents, $id);
     }
 
     public function writeStream(string $path, $contents, Config $config): void
@@ -150,6 +152,6 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     private function getDetails(string $path): object
     {
-       return Cloudflare::images()->getImageDetails($this->accountId, $path);
+        return Cloudflare::images()->getImageDetails($this->accountId, $path);
     }
 }
