@@ -1,5 +1,7 @@
 # Cloudflare Images Filesystem Driver
-This package provides a filesystem driver for Cloudflare Images.
+This package provides a filesystem driver for Cloudflare Images. If you need more control or want to want to implement more Cloudflare API endpoints have a look at our [Laravel wrapper for Cloudflare](https://github.com/food-ticket/laravel-cloudflare) which is also used by this packages.  
+
+The full documentation of the Cloudflare Images API can be found [here](https://developers.cloudflare.com/images/).
 
 ## Requirements
 
@@ -33,7 +35,7 @@ CLOUDFLARE_IMAGES_API_KEY=<API key>
 ```
 
 ## Getting started
-The Cloudflare Images filesystem driver can be used as you would use another filesystem driver. The documentation for the Laravel filesystem can be found [here](https://laravel.com/docs/9.x/filesystem). 
+The Cloudflare Images filesystem driver can be used as you would use another filesystem driver. The documentation for the Laravel filesystem can be found [here](https://laravel.com/docs/master/filesystem). 
 
 The following example shows how to use the Cloudflare Images filesystem driver to store a file.
 ```
@@ -69,4 +71,4 @@ The following methods still need to be implemented:
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within this project, please email me via [development@foodticket.nl](mailto:development@foodticket.nl).
+If you discover a security vulnerability within this project, please email me via [developer@foodticket.nl](mailto:developer@foodticket.nl).
