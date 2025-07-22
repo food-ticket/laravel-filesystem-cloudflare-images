@@ -3,6 +3,7 @@
     "description": "A Laravel filesystem driver for Cloudflare Images",
     "keywords": ["laravel", "Cloudflare", "images", "Cloudflare Images"],
     "type": "library",
+    "license": "MIT",
     "require": {
         "php": "^8.0|^8.1|^8.2|^8.3",
         "guzzlehttp/guzzle": "^7.0",
@@ -22,7 +23,6 @@
             "Tests\\": "tests"
         }
     },
-    "license": "GPL-3.0-only",
     "authors": [
         {
             "name": "Rik",
