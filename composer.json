@@ -5,13 +5,13 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "guzzlehttp/guzzle": "^7.0",
-        "laravel/framework": "^11.0|^12.0",
-        "foodticket/laravel-cloudflare": "^v0.0.10"
+        "laravel/framework": "^12.0|^13.0",
+        "foodticket/laravel-cloudflare": "^v0.0.11"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0|^10.0"
+        "orchestra/testbench": "^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {

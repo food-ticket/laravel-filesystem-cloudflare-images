@@ -5,8 +5,8 @@ The full documentation of the Cloudflare Images API can be found [here](https://
 
 ## Requirements
 
-- PHP >= 8.0
-- Laravel >= 9.0
+- PHP >= 8.3
+- Laravel >= 12.0
 
 ## Installation
 To start using the package, you need to install it via Composer:
