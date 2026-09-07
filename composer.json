@@ -8,7 +8,7 @@
         "php": "^8.3",
         "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": "^12.0|^13.0",
-        "foodticket/laravel-cloudflare": "^v0.0.11"
+        "foodticket/laravel-cloudflare": "^0.1"
     },
     "require-dev": {
         "orchestra/testbench": "^11.0|^12.0"
